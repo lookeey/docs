@@ -2,14 +2,14 @@
   "$schema": "https://mintlify.com/schema.json",
   "name": "Docs",
   "logo": "/logo/icon.png",
-  "favicon": "./favicon.png",
+  "favicon": "/favicon.png",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#0088ff",
+    "light": "#00bfff",
+    "dark": "#0040ad",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#0c5494",
+      "to": "#0778c9"
     }
   },
   "topbarLinks": [
