@@ -24,11 +24,6 @@
   },
   "anchors": [
     {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://docs.sonic.sale"
-    },
-    {
       "name": "Discord",
       "icon": "discord",
       "url": "https://discord.gg/RnaEqbeZbq"
