@@ -1,0 +1,61 @@
+---
+title: 'Technicals'
+description: 'See how the SONICSALE works internally'
+icon: 'gears'
+---
+
+## Pricing Curve
+
+A SONICSALE pool works exactly like Uniswap V2 or a Volatile AMM pool: it uses the `x*y = k` curve.
+To account for the inexistent FTM at launch, a theoretical FTM amount is added to the pool. This is the
+`Virtual FTM` amount.
+
+## How is this accounted?
+To account for this inflated FTM amount that doesn't actually exist, the token amount is also inflated by
+a certain amount considering the pool's parameters (see below); so when the target price is achieved 
+(when max ftm is the amount in the pool), both amounts are set to the real amounts and the price is kept the same.
+
+## Why?
+Other presale apps may use bonding curves or linear price. However, this pricing method has the following benefits:
+- uses a liquidity model that everyone is familiar with: x*y = k;
+- presale and resulting final pool are closely related in the way they're priced, since they use the same curve
+
+## Virtual Reserve Calculations
+A SonicPool takes 3 parameters:
+- Max Supply (total supply of created token)
+- Virtual FTM
+- Max FTM
+
+The contract will then calculate the virtual amounts to be used in pricing:
+
+At pool creation, virtual reserves are:
+- FTM reserve: Virtual FTM as set during creation.
+- Token reserve: `maxSupply / (1 - (virtualFTM / maxFTM)²)`
+
+## Example
+A pool is launched with parameters:
+- Max Supply: 5,000,000
+- Virtual FTM: 1,000
+- Max FTM: 20,000
+
+This means the presale will end once 19,000 FTM worth of Token have been bought.
+
+Reserve formula: `maxSupply / (1 - (virtualFTM / maxFTM)²)`
+
+`5000000 / (1 - (1000 / 20000)²)` = `5012531.32`
+
+Applying the `x*y = k` curve:
+
+`5012531.32 * 1000 = k`
+
+Solving for FTM reserve = 20000 (max FTM)
+
+`x * 20000 = 5012531.32 * 1000`; `x = 250626.57`
+
+Price at max FTM = 20,000 / 250,626.57 = 0.07979
+
+Now, we must switch to using the correct reserves. They are:
+- 19,000 FTM (max - virtual)
+- 238,095.25 (sold tokens - max supply)
+
+Price with correct reserves: 19,000 / 238,095.25 = 0.07979

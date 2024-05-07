@@ -48,6 +48,12 @@
         "into-the-sale",
         "launch"
       ]
+    },
+    {
+      "group": "Advanced",
+      "pages": [
+        "technicals"
+      ]
     }
   ]
 }
